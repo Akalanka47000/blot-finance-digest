@@ -20,16 +20,10 @@ const options = {
 };
 
 if (process.env.REDIS_CONNECTION_STRING && !process.env.USE_IN_MEMORY_RATE_LIMITER) {
-  const { redis } = require('@system/redis').default;
+  const { redis } = require('@/database/redis').default;
   options.store = new RedisStore({
     sendCommand: (...args) => redis.call(...args)
   });
 }
 
 export const rateLimiter = rateLimit(options);
-
-export const emailRateLimiter = rateLimit({
-  ...options,
-  keyGenerator: (req: Request) => `${requestIp.getClientIp(req)}-email`,
-  max: 3
-});

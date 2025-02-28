@@ -1,10 +1,11 @@
 import { default as serviceConnector } from '@sliit-foss/service-connector';
+import config from '@/config';
 
 const options = {
-  baseURL: process.env.FINHUB_BASE_URL,
+  baseURL: config.FINNHUB_BASE_URL,
   service: 'Finhub',
   headerIntercepts: () => ({
-    'X-Finnhub-Token': process.env.FINNHUB_API_KEY
+    'X-Finnhub-Token': config.FINNHUB_API_KEY
   })
 };
 

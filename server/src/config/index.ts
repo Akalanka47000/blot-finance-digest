@@ -40,7 +40,7 @@ const config = validate({
     REFRESH_TOKEN_EXPIRY: Joi.string().optional(),
     FRONTEND_BASE_URL: Joi.string().required(),
     SERVICE_REQUEST_KEY: Joi.string().required(),
-    FINHUB_BASE_URL: Joi.string().required(),
+    FINNHUB_BASE_URL: Joi.string().required(),
     FINNHUB_API_KEY: Joi.string().required()
   },
   values: {
@@ -54,7 +54,7 @@ const config = validate({
     REFRESH_TOKEN_EXPIRY: process.env.REFRESH_TOKEN_EXPIRY ?? '1d',
     FRONTEND_BASE_URL: process.env.FRONTEND_BASE_URL,
     SERVICE_REQUEST_KEY: process.env.SERVICE_REQUEST_KEY,
-    FINHUB_BASE_URL: process.env.FINHUB_BASE_URL,
+    FINNHUB_BASE_URL: process.env.FINNHUB_BASE_URL,
     FINNHUB_API_KEY: process.env.FINNHUB_API_KEY
   }
 });

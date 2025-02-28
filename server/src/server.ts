@@ -1,6 +1,6 @@
 import { default as crypto } from 'crypto';
 import { default as fs } from 'fs';
-import express, { NextFunction, Request, Response } from 'express';
+import { default as express, NextFunction, Request, Response } from 'express';
 import { default as context } from 'express-http-context';
 import { headers } from '@shared/constants';
 import { moduleLogger } from '@sliit-foss/module-logger';
@@ -12,6 +12,7 @@ import { default as polyglot } from 'node-polyglot';
 import { default as config } from '@/config';
 import { locales } from '@/locales';
 import { errorHandler, expressHealth, responseInterceptor } from '@/middleware';
+import 'reflect-metadata';
 
 const service = 'Finance-Digest-Service';
 
