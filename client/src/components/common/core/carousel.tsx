@@ -1,7 +1,6 @@
 'use client';
 
 import * as React from 'react';
-import { Button } from '@app/ui';
 import {
   type EmblaCarouselType as CarouselApi,
   type EmblaOptionsType as CarouselOptions,
@@ -9,7 +8,8 @@ import {
 } from 'embla-carousel';
 import useEmblaCarousel from 'embla-carousel-react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { cn } from '../utils';
+import { cn } from '@/utils';
+import { Button } from '@app/ui';
 
 type CarouselProps = {
   opts?: CarouselOptions;

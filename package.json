@@ -12,7 +12,7 @@
     "start": "NODE_ENV=production turbo run start",
     "lint": "turbo run lint",
     "test": "turbo run test",
-    "format": "bunx prettier --write --cache --loglevel=error \"**/*.{js,ts,tsx,md}\"",
+    "format": "bunx prettier --write  --loglevel=error \"**/*.{js,ts,tsx,md}\"",
     "prepare": "lefthook install"
   },
   "dependencies": {
@@ -30,7 +30,7 @@
     "eslint-config-custom": "workspace:*",
     "lefthook": "1.5.5",
     "node-mocks-http": "1.14.0",
-    "prettier": "2.8.3",
+    "prettier": "3.5.2",
     "turbo": "1.11.3",
     "typescript": "5.3.3"
   },

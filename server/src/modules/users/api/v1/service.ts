@@ -22,6 +22,6 @@ export const updateUserById = async (id: string, data: Partial<IUser>) => {
   return traced[layer](repository.updateUserById)(id, data);
 };
 
-export const deleteUserById = async (id: string) => {
+export const deleteUserById = (id: string) => {
   return traced[layer](repository.deleteUserById)(id);
 };

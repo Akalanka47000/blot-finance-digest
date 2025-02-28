@@ -1,24 +1,28 @@
 {
-    "printWidth": 120,
-    "bracketSameLine": true,
-    "bracketSpacing": true,
-    "singleQuote": true,
-    "quoteProps": "consistent",
-    "trailingComma": "none",
-    "plugins": ["@ianvs/prettier-plugin-sort-imports"],
-    "importOrder": [
-      "^(express|@express*(.*)$)",
-      "^(next|@next*(.*)$)",
-      "^(react|@react*(.*)$)",
-      "^(@app*(.*)$)",
-      "^(@shared*(.*)$)",
-      "^(@system*(.*)$)",
-      "^(@sliit-foss*(.*)$)",
-      "<THIRD_PARTY_MODULES>",
-      "^(@/*(.*)$)",
-      "^[./]",
-      "^(?!.*[.]css$)[./].*$", ".css$"          
-    ],
-    "importOrderSeparation": false,
-    "importOrderSortSpecifiers": true
-  }
+  "printWidth": 120,
+  "bracketSameLine": true,
+  "bracketSpacing": true,
+  "singleQuote": true,
+  "quoteProps": "consistent",
+  "trailingComma": "none",
+  "plugins": [
+    "@ianvs/prettier-plugin-sort-imports"
+  ],
+  "importOrderParserPlugins": [
+    "typescript",
+    "jsx",
+    "decorators-legacy"
+  ],
+  "importOrder": [
+    "^(express|@express*(.*)$)",
+    "^(next|@next*(.*)$)",
+    "^(react|@react*(.*)$)",
+    "^(@shared*(.*)$)",
+    "^(@sliit-foss*(.*)$)",
+    "<THIRD_PARTY_MODULES>",
+    "^(@/*(.*)$)",
+    "^[./]",
+    "^(?!.*[.]css$)[./].*$",
+    ".css$"
+  ]
+}

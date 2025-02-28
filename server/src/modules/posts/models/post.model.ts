@@ -1,31 +1,31 @@
-import { CustomRepository } from "@/database/postgres"
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from "typeorm"
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { CustomRepository } from '@/database/postgres';
 
-@Entity({ name: "posts", comment: "Stores all user created posts" })
+@Entity({ name: 'posts', comment: 'Stores all user created posts' })
 export class Post {
-    @PrimaryGeneratedColumn("uuid")
-    id: string
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-    @Column()
-    title: string
+  @Column()
+  title: string;
 
-    @Column()
-    external_article_url: string
+  @Column()
+  external_article_url: string;
 
-    @Column()
-    featured_image_url: string
+  @Column()
+  featured_image_url: string;
 
-    @CreateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP(6)" })
-    public created_at: Date;
+  @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP(6)' })
+  public created_at: Date;
 
-    @UpdateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP(6)", onUpdate: "CURRENT_TIMESTAMP(6)" })
-    public updated_at: Date;
+  @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP(6)', onUpdate: 'CURRENT_TIMESTAMP(6)' })
+  public updated_at: Date;
 
-    static repository() {
-        return new CustomRepository(this)
-    }
+  static repository() {
+    return new CustomRepository(this);
+  }
 }
 
 declare global {
-    type IPost = InstanceType<typeof Post>;
+  type IPost = InstanceType<typeof Post>;
 }
