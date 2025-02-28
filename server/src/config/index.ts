@@ -49,7 +49,7 @@ const config = validate({
     DB_URL: process.env.DB_URL,
     REDIS_CONNECTION_STRING: process.env.REDIS_CONNECTION_STRING,
     JWT_SECRET: process.env.JWT_SECRET,
-    SALT_ROUNDS: +process.env.SALT_ROUNDS || 10,
+    SALT_ROUNDS: Number(process.env.SALT_ROUNDS || 10),
     ACCESS_TOKEN_EXPIRY: process.env.ACCESS_TOKEN_EXPIRY ?? '1h',
     REFRESH_TOKEN_EXPIRY: process.env.REFRESH_TOKEN_EXPIRY ?? '1d',
     FRONTEND_BASE_URL: process.env.FRONTEND_BASE_URL,

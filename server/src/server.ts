@@ -12,7 +12,7 @@ import { default as polyglot } from 'node-polyglot';
 import { default as config } from '@/config';
 import { locales } from '@/locales';
 import { errorHandler, expressHealth, responseInterceptor } from '@/middleware';
-import 'reflect-metadata';
+import * as database from './database/postgres';
 
 const service = 'Finance-Digest-Service';
 
@@ -50,9 +50,13 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   next();
 });
 
+await database.connect();
+
 expressHealth({
   service,
-  checkFunctions: {}
+  checkFunctions: {
+    database: (() => database.ping()),
+  }
 })(router);
 
 const routes = express.Router();
@@ -89,6 +93,9 @@ process.on('SIGTERM', () => {
   server.close(() => {
     if (process.env.NODE_ENV === 'development') return process.exit(0);
     logger.info('Server shutdown complete. Exiting after 30 seconds minutes');
-    setTimeout(() => process.exit(0), 30000);
+    setTimeout(async () => {
+      await database.disconnect();
+      process.exit(0);
+    }, 30000);
   });
 });

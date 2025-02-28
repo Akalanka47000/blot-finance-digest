@@ -8,10 +8,19 @@ declare global {
       /** Part of the apicache library. Used to group cache keys */
       apicacheGroup?: any;
     }
+    
     interface Response {
       polyglot: Polyglot;
     }
   }
+
+  export interface QueryOptions {
+    filter?: Record<string, any>;
+    sort?: Record<string, any>;
+    page?: number;
+    limit?: number;
+    include?: string[];
+  }
 }
 
-export {};
+export { };

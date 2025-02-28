@@ -22,7 +22,6 @@
     "@commitlint/cli": "17.4.2",
     "@commitlint/config-conventional": "17.4.2",
     "@ianvs/prettier-plugin-sort-imports": "4.2.1",
-    "@types/finance-digest": "workspace:*",
     "@types/lodash": "4.17.6",
     "@typescript-eslint/eslint-plugin": "6.16.0",
     "@typescript-eslint/parser": "6.16.0",

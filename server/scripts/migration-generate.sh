@@ -1,0 +1,1 @@
+bun typeorm migration:generate ./src/database/postgres/migrations/$1

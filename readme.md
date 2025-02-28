@@ -34,6 +34,11 @@ This is a [Turborepo](https://turbo.build/repo) designed to house all components
 - `bun install` - Installs all dependencies for all workspaces
 - `bun dev` - Runs a development server for both client and server
 
+
+## Running migrations
+
+- `bun migrate --filter server` - Runs migrations for the server workspace, or you could navigate to the server workspace and run `bun migrate`
+
 </br>
 
 ## Utilities

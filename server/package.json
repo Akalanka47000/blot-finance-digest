@@ -1,5 +1,5 @@
 {
-  "name": "finance-digest-server",
+  "name": "server",
   "version": "1.0.0",
   "author": "Akalanka Perera",
   "main": "src/server.ts",
@@ -8,9 +8,13 @@
     "start": "bun src/server.ts",
     "lint": "bun run --bun eslint --cache --ext js,ts,jsx,tsx --fix .",
     "test": "bun test --coverage --verbose --runInBand --forceExit",
-    "migrate": "bun run --bun migrate-mongo $@ --file='../../packages/services/database/config/migrations.ts'",
-    "seed": "bun run --bun migrate-mongo $@ --file='../../packages/services/database/config/seeds.ts'"
+    "typeorm": "bun ../node_modules/typeorm/cli.js --dataSource ./src/database/postgres/data-source.ts",
+    "migration:generate": "sh ./scripts/migration-generate.sh",
+    "migration:create": "sh ./scripts/migration-create.sh",
+    "migrate": "bun run --bun typeorm migration:run",
+    "rollback": "bun run --bun typeorm migration:revert"
   },
+  "type": "module",
   "dependencies": {
     "@sliit-foss/http-logger": "1.4.0",
     "@sliit-foss/functions": "2.10.0",
