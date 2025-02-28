@@ -1,0 +1,92 @@
+diff --git a/node_modules/express-http-context/.bun-tag-55b3c943d6ee5e52 b/.bun-tag-55b3c943d6ee5e52
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+diff --git a/node_modules/express-http-context/.bun-tag-6f4b564bd6c0c7e0 b/.bun-tag-6f4b564bd6c0c7e0
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+diff --git a/node_modules/express-http-context/.bun-tag-96f23c4808d4bcb2 b/.bun-tag-96f23c4808d4bcb2
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+diff --git a/node_modules/express-http-context/.bun-tag-a90b003b3aaf7c5c b/.bun-tag-a90b003b3aaf7c5c
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+diff --git a/node_modules/express-http-context/.bun-tag-bac05b6d2e378a89 b/.bun-tag-bac05b6d2e378a89
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+diff --git a/node_modules/express-http-context/.bun-tag-c92bff8eb33e549a b/.bun-tag-c92bff8eb33e549a
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+diff --git a/index.d.ts b/index.d.ts
+index eda777b3ca801802c18a13cf1fc797c96e0943ce..eebcc0371801da6257257cca8ad782c3285ee80e 100644
+--- a/index.d.ts
++++ b/index.d.ts
+@@ -1,5 +1,5 @@
+ import { Request, Response, NextFunction } from "express";
+-import { Namespace } from 'cls-hooked';
++import { AsyncLocalStorage } from "async_hooks";
+ 
+ /** Express.js middleware that is responsible for initializing the context for each request. */
+ export declare function middleware(
+@@ -21,4 +21,4 @@ export declare function set(key: string, value: any): void;
+ /**
+  * Gets the underlying continuation namespace.
+  */
+-export declare const ns: Namespace;
++export declare const ns: AsyncLocalStorage<any>;
+diff --git a/index.js b/index.js
+index 9f2a57c687d724f334bd35b712c68f1cd1e64a4c..5d383492ff4f6b1018afff4d67f8765d68165c07 100644
+--- a/index.js
++++ b/index.js
+@@ -1,13 +1,18 @@
+ 'use strict';
+ 
+-const cls = require('cls-hooked');
++const { AsyncLocalStorage } = require('async_hooks');
+ 
+-const nsid = 'a6a29a6f-6747-4b5f-b99f-07ee96e32f88';
+-const ns = cls.createNamespace(nsid);
++const store = new AsyncLocalStorage()
+ 
+ /** Express.js middleware that is responsible for initializing the context for each request. */
+ function middleware(req, res, next) {
+-	ns.run(() => next());
++	store.run(new WeakRef({}), () => {
++		let strongRef = store.getStore()?.deref()
++		res.on('finish', () => {
++			strongRef = null
++		})
++		next()
++	})
+ }
+ 
+ /**
+@@ -15,9 +20,7 @@ function middleware(req, res, next) {
+  * @param {string} key
+  */
+ function get(key) {
+-	if (ns && ns.active) {
+-		return ns.get(key);
+-	}
++	return store.getStore()?.deref()?.[key];
+ }
+ 
+ /**
+@@ -26,8 +29,9 @@ function get(key) {
+  * @param {*} value 
+  */
+ function set(key, value) {
+-	if (ns && ns.active) {
+-		return ns.set(key, value);
++	const storeData = store.getStore()?.deref()
++	if (storeData) {
++		storeData[key] = value
+ 	}
+ }
+ 
+@@ -35,5 +39,5 @@ module.exports = {
+ 	middleware,
+ 	get: get,
+ 	set: set,
+-	ns: ns
++	ns: store
+ };

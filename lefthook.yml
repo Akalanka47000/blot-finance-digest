@@ -1,0 +1,14 @@
+pre-commit:
+  parallel: true
+  commands:
+    format:
+      glob: "*.{js,ts,jsx}"
+      run: bun run format && git add .
+    lint:
+      glob: "*.{js,ts,jsx}"
+      run: bun run lint && git add .
+
+commit-msg:
+  commands:
+    commitlint:
+      run: bunx commitlint --edit --color

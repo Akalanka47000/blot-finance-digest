@@ -1,0 +1,16 @@
+export { default as artistService } from './post';
+export { default as authService } from './auth';
+export { default as bookingService } from './booking';
+export { default as dealService } from './deal';
+export { default as deliveryService } from './delivery';
+export { default as eventService } from './event';
+export { default as fileService } from './file';
+export { default as intelligenceService } from './intelligence';
+export { default as locationService } from './location';
+export { default as movieService } from './movie';
+export { default as organizerService } from './organizer';
+export { default as platformService } from './platform';
+export { default as reportService } from './report';
+export { default as ticketService } from './ticket';
+export { default as userService } from './user';
+export { default as emailService } from './email';

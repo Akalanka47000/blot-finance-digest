@@ -1,0 +1,14 @@
+{
+  "name": "@types/finance-digest",
+  "version": "0.0.0",
+  "description": "Typescript types for all Finance digest system components",
+  "private": true,
+  "main": "src/index.d.ts",
+  "types": "src/index.d.ts",
+  "scripts": {
+    "lint": "bun run --bun eslint --cache --ext js,ts,jsx,tsx --fix ."
+  },
+  "dependencies": {
+    "@shared/constants": "workspace:*"
+  }
+}
