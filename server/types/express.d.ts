@@ -8,7 +8,7 @@ declare global {
       /** Part of the apicache library. Used to group cache keys */
       apicacheGroup?: any;
     }
-    
+
     interface Response {
       polyglot: Polyglot;
     }
@@ -23,4 +23,4 @@ declare global {
   }
 }
 
-export { };
+export {};

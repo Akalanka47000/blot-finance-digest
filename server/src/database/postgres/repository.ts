@@ -1,47 +1,52 @@
-import { EntityTarget, FindManyOptions, ObjectLiteral, Repository } from "typeorm";
+import { EntityTarget, FindManyOptions, ObjectLiteral, Repository } from 'typeorm';
 
 export class CustomRepository<Entity extends ObjectLiteral> extends Repository<Entity> {
+  constructor(model: EntityTarget<Entity>) {
+    const ds = require('./data-source').default;
+    super(model, ds.createEntityManager());
+  }
 
-    constructor(model: EntityTarget<Entity>) {
-        const ds = require("./data-source").default
-        super(model, ds.createEntityManager())
+  async paginate(options: QueryOptions) {
+    const opts: FindManyOptions = {};
+    if (options.filter) {
+      opts.where = options.filter;
     }
 
-    async paginate(options: QueryOptions) {
-        const opts: FindManyOptions = {}
-        if (options.filter) {
-            opts.where = options.filter
-        }
-        if (options.sort) {
-            opts.order = options.sort
-        }
+    opts.order = {
+      created_at: 'DESC',
+      ...options.sort
+    };
 
-        let data: Entity[], total: number;
-
-        if (options.page) {
-            options.limit ??= 10
-            opts.take = +options.limit;
-            opts.skip = (+options.page - 1) * opts.take;
-            [data, total] = await this.findAndCount(opts)
-        } else {
-            data = await this.find(opts)
-            return data
-        }
-
-        const totalPages = Math.ceil(total / +options.limit)
-        let next = +options.page + 1
-        if (next > totalPages) {
-            next = null
-        }
-        const prev = +options.page - 1 || null
-        return {
-            docs: data,
-            hasNextPage: +options.page * +options.limit < total,
-            hasPrevPage: +options.page > 1,
-            nextPage: next,
-            prevPage: prev,
-            totalDocs: total,
-            totalPages
-        }
+    if (!options.page) {
+      return this.find(opts);
     }
+
+    options.page = Number(options.page);
+    options.limit = Number(options.limit) || 10;
+
+    opts.take = options.limit;
+    opts.skip = (options.page - 1) * opts.take;
+
+    const [data, total] = await this.findAndCount(opts);
+
+    const totalPages = Math.ceil(total / options.limit);
+    let next = options.page + 1;
+    if (next > totalPages) {
+      next = null;
+    }
+
+    const prev = options.page - 1 || null;
+
+    return {
+      docs: data,
+      totalDocs: total,
+      limit: options.limit,
+      page: options.page,
+      totalPages,
+      nextPage: next,
+      prevPage: prev,
+      hasPrevPage: options.page > 1,
+      hasNextPage: options.page * options.limit < total
+    };
+  }
 }

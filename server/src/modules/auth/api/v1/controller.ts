@@ -20,10 +20,11 @@ auth.post(
   '/register',
   celebrate({ [Segments.BODY]: registerSchema }),
   tracedAsyncHandler(async function register(req: Request, res: Response) {
-    await service.register(req.body);
+    const data = await service.register(req.body);
     return toSuccess({
       res,
-      message: 'Registration successfull! Please check your email or mobile to verify your account'
+      data,
+      message: 'Registration successfull!'
     });
   })
 );

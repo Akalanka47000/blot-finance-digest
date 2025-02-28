@@ -11,19 +11,16 @@ const logger = moduleLogger('Error-handler');
  */
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 export const errorHandler = (err, _req, res, next) => {
-  console.log(err.name)
   if (isCelebrateError(err)) {
     for (const [, value] of err.details.entries() as any) {
       const message = value.details[0].message;
       if (!res.errorLogged) logger.error(err.message, { details: message });
       return res.status(422).json({ message });
     }
-  } else if (err.code === "23505") {
+  } else if (err.code === '23505') {
     const key = err.detail.match(/\(([^)]+)\)/)[1];
     const value = err.detail.match(/=\(([^)]+)\)/)[1];
-    return res
-      .status(400)
-      .json({ message: `The ${key} ${value} is already taken` });
+    return res.status(400).json({ message: `The ${key} ${value} is already taken` });
   } else {
     if (!res.errorLogged) logger.error(err.message, err);
   }

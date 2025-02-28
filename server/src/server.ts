@@ -1,3 +1,5 @@
+// prettier-ignore
+import * as database from '@/database/postgres';
 import { default as crypto } from 'crypto';
 import { default as fs } from 'fs';
 import { default as express, NextFunction, Request, Response } from 'express';
@@ -11,8 +13,9 @@ import { default as helmet } from 'helmet';
 import { default as polyglot } from 'node-polyglot';
 import { default as config } from '@/config';
 import { locales } from '@/locales';
-import { errorHandler, expressHealth, responseInterceptor } from '@/middleware';
-import * as database from './database/postgres';
+import { errorHandler, expressHealth, httpLogger, rateLimiter, responseInterceptor, sentinel } from '@/middleware';
+
+await database.connect();
 
 const service = 'Finance-Digest-Service';
 
@@ -50,16 +53,16 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   next();
 });
 
-await database.connect();
-
 expressHealth({
   service,
   checkFunctions: {
-    database: (() => database.ping()),
+    database: () => database.ping()
   }
 })(router);
 
 const routes = express.Router();
+
+/* Automatically discovers and mounts all routes from the modules directory */
 const root = stack()
   .find((site) => site.getFileName().endsWith('server.ts'))
   ?.getFileName()
@@ -72,7 +75,7 @@ fs.readdirSync(`${root}/modules`)?.forEach((module) => {
   });
 });
 
-router.use(['/api', '/'], routes);
+router.use(['/api', '/'], rateLimiter, httpLogger, sentinel, routes);
 
 app.use(responseInterceptor);
 

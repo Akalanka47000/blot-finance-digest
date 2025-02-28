@@ -4,22 +4,14 @@ import { ctxAuthorizerError, ctxHeaders, ctxUser, headers } from '@shared/consta
 import { asyncHandler } from '@sliit-foss/functions';
 import { default as createError } from 'http-errors';
 import { Blacklist, errors, verify } from '@/modules/auth/utils';
+import { getUserById } from '@/modules/users/repository';
 
 export const forbiddenRouteError = createError(403, 'Route forbidden');
-
-export const accessExpiredError = createError(
-  401,
-  'Your system access has expired. Please contact support to renew your access'
-);
 
 const whitelistedRoutes = [
   '/v1/auth/login',
   '/v1/auth/register',
   '/v1/auth/refresh-token',
-  '/v1/auth/sign/*',
-  '/v1/auth/verify/*',
-  '/v1/auth/forgot-password',
-  '/v1/auth/reset-password/*',
   '/system/health',
   '/system/liveness',
   '/system/readiness'
@@ -34,11 +26,19 @@ export const sentinel = asyncHandler(async (req: Request) => {
   }
 
   const token = req.headers.authorization?.replace('Bearer ', '')?.replace('null', '');
+
   if (!token) {
     return context.set(ctxAuthorizerError, errors.missing_token);
   }
 
-  const decodedUser = verify(token);
+  let decodedUser;
+
+  try {
+    decodedUser = verify(token);
+  } catch (e) {
+    return context.set(ctxAuthorizerError, e);
+  }
+
   const user = await getUserById(decodedUser._id);
 
   if (!user) {
@@ -50,7 +50,7 @@ export const sentinel = asyncHandler(async (req: Request) => {
 
   req.user = user;
   req.token = token;
-  req.headers[headers.userId] = user?._id;
+  req.headers[headers.userId] = user?.id;
   req.headers[headers.userEmail] = user?.email;
 
   context.set(ctxUser, user);

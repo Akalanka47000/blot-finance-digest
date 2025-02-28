@@ -37,5 +37,5 @@
   "patchedDependencies": {
     "express-http-context@1.2.4": "patches/express-http-context@1.2.4.patch"
   },
-  "packageManager": "bun@1.2.0"
+  "packageManager": "bun@1.2.2"
 }

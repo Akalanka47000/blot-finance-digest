@@ -1,1 +1,1 @@
-export * from './finhub';
+export * as finhub from './finhub';

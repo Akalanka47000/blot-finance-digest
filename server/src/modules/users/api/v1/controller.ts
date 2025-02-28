@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import { tracedAsyncHandler } from '@sliit-foss/functions';
 import { celebrate, Segments } from 'celebrate';
-import { cache, internal, toSuccess } from '@/middleware';
+import { cache, cacheSuccess, internal, toSuccess } from '@/middleware';
 import { idSchema } from '@/utils';
 import { createUserSchema, updateUserSchema } from './schema';
 import * as service from './service';
@@ -30,6 +30,7 @@ user.get(
 user.get(
   '/:id',
   internal,
+  cacheSuccess('30 seconds'),
   celebrate({ [Segments.PARAMS]: idSchema }),
   tracedAsyncHandler(async function getUserById(req: Request, res: Response) {
     req.apicacheGroup = req.params.id;
