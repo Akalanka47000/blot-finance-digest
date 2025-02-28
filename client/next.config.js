@@ -23,7 +23,7 @@ const nextConfig = {
     unoptimized: true
   },
   experimental: {
-    optimizePackageImports: ['@shared/constants', '@/components', '@/constants', '@/hooks', '@/icons']
+    optimizePackageImports: ['@shared/constants', '@/components', '@/constants', '@/hooks', '@/icons', '@/utils',]
   }
 };
 

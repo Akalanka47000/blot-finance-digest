@@ -9,7 +9,7 @@ import {
 import useEmblaCarousel from 'embla-carousel-react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { cn } from '@/utils';
-import { Button } from '@app/ui';
+import { Button } from '@/components';
 
 type CarouselProps = {
   opts?: CarouselOptions;

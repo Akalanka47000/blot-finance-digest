@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { ScaleLoader } from 'react-spinners';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/utils';
 import { Slot } from '@radix-ui/react-slot';
+import { Loader2 } from 'lucide-react';
 
 const buttonVariants = cva(
   'inline-flex items-center justify-center whitespace-nowrap rounded-md small font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
@@ -47,7 +47,7 @@ const loaderVariants = cva('', {
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
+  VariantProps<typeof buttonVariants> {
   asChild?: boolean;
 }
 
@@ -74,14 +74,7 @@ const ExtendedButton = React.forwardRef<HTMLButtonElement, ExtendedButtonProps>(
     props.className = cn(props.className, loading && '[&>*]:invisible text-transparent');
     return (
       <Button {...props} disabled={props.disabled || loading} ref={ref}>
-        <ScaleLoader
-          loading={!!loading}
-          className="absolute !visible"
-          color={loaderVariants({ variant: props.variant as any })}
-          height={loaderSizes[props.size as string] ?? 18}
-          width={2.5}
-          margin={1.5}
-        />
+        <Loader2 className="animate-spin" />
         {children}
       </Button>
     );

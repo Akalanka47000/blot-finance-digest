@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import { Header } from '@/components';
 import { Toaster } from '@/components/common/core';
+import { default as Providers } from '@/providers';
 import './globals.css';
 import './preload-resources';
 
