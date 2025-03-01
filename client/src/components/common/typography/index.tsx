@@ -6,7 +6,9 @@ export const HighImportanceText = ({
   ...props
 }: React.PropsWithChildren<React.HTMLAttributes<HTMLHeadingElement>>) => {
   return (
-    <h1 className={cn('max-w-3xl text-4xl sm:text-5xl md:text-6xl text-center px-6 sm:px-12 uppercase', className)} {...props}>
+    <h1
+      className={cn('max-w-3xl text-4xl sm:text-5xl md:text-6xl text-center px-6 sm:px-12 uppercase', className)}
+      {...props}>
       {children}
     </h1>
   );

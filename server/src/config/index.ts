@@ -41,7 +41,11 @@ const config = validate({
     FRONTEND_BASE_URL: Joi.string().required(),
     SERVICE_REQUEST_KEY: Joi.string().required(),
     FINNHUB_BASE_URL: Joi.string().required(),
-    FINNHUB_API_KEY: Joi.string().required()
+    FINNHUB_API_KEY: Joi.string().required(),
+    AWS_REGION: Joi.string().required(),
+    AWS_S3_BUCKET_NAME: Joi.string().required(),
+    AWS_ACCESS_KEY_ID: Joi.string().required(),
+    AWS_SECRET_ACCESS_KEY: Joi.string().required()
   },
   values: {
     HOST: process.env.HOST ?? '0.0.0.0',
@@ -55,7 +59,11 @@ const config = validate({
     FRONTEND_BASE_URL: process.env.FRONTEND_BASE_URL,
     SERVICE_REQUEST_KEY: process.env.SERVICE_REQUEST_KEY,
     FINNHUB_BASE_URL: process.env.FINNHUB_BASE_URL,
-    FINNHUB_API_KEY: process.env.FINNHUB_API_KEY
+    FINNHUB_API_KEY: process.env.FINNHUB_API_KEY,
+    AWS_REGION: process.env.AWS_REGION,
+    AWS_S3_BUCKET_NAME: process.env.AWS_S3_BUCKET_NAME,
+    AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID,
+    AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY
   }
 });
 

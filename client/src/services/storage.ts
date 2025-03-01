@@ -1,8 +1,8 @@
-import { RequestCreateConfig } from '@/types';
+import { IUploadFileResponse, RequestCreateConfig } from '@/types';
 import { instance } from './core';
 
-function uploadFiles({ v = 'v1', data, options }: RequestCreateConfig): Promise<string[]> {
-  return instance.post(`/api/${v}/storage/files`, data, {
+function uploadFiles({ v = 'v1', data, options }: RequestCreateConfig) {
+  return instance.post<IUploadFileResponse>(`/api/${v}/storage/files`, data, {
     headers: { 'Content-Type': 'multipart/form-data', ...options?.headers },
     ...options
   });
