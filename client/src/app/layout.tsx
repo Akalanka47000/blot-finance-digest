@@ -9,7 +9,7 @@ import { Suspense } from 'react';
 const title = 'BLOTT | Finance Digest';
 const description =
   'A central hub for all things finance. Get the latest news, insights, and analysis on the financial world.';
-const url = 'https://blott-finance-digest.vercel.app';
+const url = 'https://blot-finance-digest-client.vercel.app';
 
 export const metadata: Metadata = {
   title,
