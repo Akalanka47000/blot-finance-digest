@@ -22,4 +22,4 @@ EXPOSE 8080
 
 # Not a good practice to run redis in the same container as the server
 # But for the sake of simplicity of this deployment, we are doing it here
-CMD ["sh", "-c",  "redis-server --daemonize yes && bun ./server/src/server.ts"]
+CMD ["sh", "-c",  "redis-server --daemonize yes && cd ./server && bun start"]
