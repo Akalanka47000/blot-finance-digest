@@ -11,8 +11,6 @@ instance.defaults.headers.post['Content-Type'] = 'application/json';
 instance.interceptors.request.use((req) => {
   if (typeof window !== 'undefined') {
     req.headers[headers.correlationId] = window.crypto.randomUUID();
-  } else {
-    req.headers[headers.serviceRequestKey] = process.env.SERVICE_REQUEST_KEY;
   }
   return req;
 });

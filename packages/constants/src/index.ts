@@ -5,6 +5,7 @@ export const headers = {
   authorization: 'authorization',
   userAgent: 'user-agent',
   origin: 'origin',
+  cookie: 'cookie',
   userId: 'x-user-id',
   userEmail: 'x-user-email',
   correlationId: 'x-correlation-id',
