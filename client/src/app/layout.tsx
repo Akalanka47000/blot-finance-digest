@@ -1,10 +1,10 @@
+import { Suspense } from 'react';
 import type { Metadata, Viewport } from 'next';
 import { notoSerif, roboto } from '@/assets/fonts';
 import { Header, Toaster } from '@/components';
 import { default as Providers } from '@/providers';
 import '../styles/index.css';
 import './preload-resources';
-import { Suspense } from 'react';
 
 const title = 'BLOTT | Finance Digest';
 const description =
