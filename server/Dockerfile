@@ -10,7 +10,7 @@ COPY packages ./packages
 
 COPY server ./server
 
-COPY package.json bun.lock tsconfig.json ./
+COPY package.json bun.lock ./
 
 RUN echo -e "[install]\ndev=false" > bunfig.toml
 

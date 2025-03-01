@@ -14,7 +14,7 @@ COPY client ./client
 
 COPY packages ./packages
 
-COPY package.json bun.lock tsconfig.json ./
+COPY package.json bun.lock ./
 
 RUN bun install --ignore-scripts
 
