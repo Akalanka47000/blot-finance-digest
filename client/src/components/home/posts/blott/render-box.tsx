@@ -66,10 +66,10 @@ export function RenderBox({ initialPosts }: IRenderBoxProps): JSX.Element {
                   className={cn(
                     'pl-2',
                     position === 1
-                      ? 'basis-[60%] lg:basis-[42.5%]'
+                      ? 'basis-[60%] lg:basis-[45.5%]'
                       : position === 2
-                        ? 'basis-[40%] lg:basis-[35%]'
-                        : 'basis-[23.67%]'
+                        ? 'basis-[40%] lg:basis-[30%]'
+                        : 'basis-[25%]'
                   )}>
                   <Post post={p} source={PostSource.BLOTT} />
                 </CarouselItem>

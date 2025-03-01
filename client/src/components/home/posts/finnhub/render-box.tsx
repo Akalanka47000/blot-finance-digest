@@ -36,7 +36,7 @@ export function RenderBox({ initialPosts }: IRenderBoxProps): JSX.Element {
 
   return (
     <>
-      <div className="pt-0 lg:pt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <div className="pt-0 lg:pt-3 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {posts?.map((p) => <Post key={p.id} post={p} source={PostSource.FINNHUB} />)}
       </div>
       {!reachedEnd && (
