@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import { notoSerif, roboto } from '@/assets/fonts';
 import { Header, Toaster } from '@/components';
 import { default as Providers } from '@/providers';
-import './globals.css';
+import '../styles/index.css';
 import './preload-resources';
 
 const title = 'BLOTT | Finance Digest';
@@ -65,7 +65,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }): JSX.Element {
   return (
     <html lang="en">
-      <body className={`${roboto.variable} ${notoSerif.variable} min-h-svh flex flex-col justify-between`}>
+      <body className={`${roboto.className} ${notoSerif.variable} min-h-svh flex flex-col justify-between`}>
         <Providers>
           <Header />
           {children}
