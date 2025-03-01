@@ -5,8 +5,7 @@ export const setCookie = (res: Response, name: string, value: string, expiry: nu
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'none',
-    maxAge: expiry * 60 * 60 * 1000,
-    path: '/'
+    maxAge: expiry * 60 * 60 * 1000
   });
 };
 
