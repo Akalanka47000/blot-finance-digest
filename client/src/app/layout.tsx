@@ -1,12 +1,9 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter } from 'next/font/google';
-import { Header } from '@/components';
-import { Toaster } from '@/components/common/core';
+import { notoSerif, roboto } from '@/assets/fonts';
+import { Header, Toaster } from '@/components';
 import { default as Providers } from '@/providers';
 import './globals.css';
 import './preload-resources';
-
-const inter = Inter({ subsets: ['latin'] });
 
 const title = 'BLOTT | Finance Digest';
 const description =
@@ -68,7 +65,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }): JSX.Element {
   return (
     <html lang="en">
-      <body className={`${inter.className} min-h-svh flex flex-col justify-between`}>
+      <body className={`${roboto.variable} ${notoSerif.variable} min-h-svh flex flex-col justify-between`}>
         <Providers>
           <Header />
           {children}

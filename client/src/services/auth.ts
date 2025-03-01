@@ -1,6 +1,6 @@
-import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/constants';
-import {
+import type {
   CurrentConfig,
+  ICurrentUserResponse,
   ILoginResponse,
   ILogoutResponse,
   IRefreshResponse,
@@ -11,57 +11,50 @@ import {
   RegisterConfig
 } from '@/types';
 import { instance } from './core';
+import { resetTokens, saveTokens } from './core/util';
 
-function login({ v = 'v1', data, options }: LoginConfig): Promise<ILoginResponse> {
-  return instance.post(endpoints.LOGIN.replace(':version', v), data, options).then((res: any) => {
-    localStorage.setItem(ACCESS_TOKEN, res.access_token);
-    localStorage.setItem(REFRESH_TOKEN, res.refresh_token);
-    return res as ILoginResponse;
+
+function login({ v = 'v1', data, options }: LoginConfig) {
+  return instance.post<ILoginResponse>(`/api/${v}/auth/login`, data, options).then((res) => {
+    saveTokens(res.data);
+    return res;
   });
 }
 
-function register({ v = 'v1', data, options }: RegisterConfig): Promise<IRegisterResponse> {
-  return instance.post(endpoints.REGISTER.replace(':version', v), data, options);
+function register({ v = 'v1', data, options }: RegisterConfig) {
+  return instance.post<IRegisterResponse>(`/api/${v}/auth/register`, data, options).then((res) => {
+    saveTokens(res.data);
+    return res;
+  });
 }
 
-function current(config?: CurrentConfig): Promise<IUser> {
-  const v = config?.v ?? 'v1';
-  const options = config?.options ?? {};
+function current({ v = 'v1', options }: CurrentConfig = {}) {
   return instance
-    .get(endpoints.CURRENT.replace(':version', v), options)
-    .then((res: any) => res as IUser)
+    .get<ICurrentUserResponse>(`/api/${v}/auth/current`, options)
     .catch((error) => {
       resetTokens();
       return Promise.reject(error);
     });
 }
 
-function refresh({ v = 'v1', data, options }: RefreshConfig): Promise<IRefreshResponse> {
+function refresh({ v = 'v1', data, options }: RefreshConfig) {
   return instance
-    .post(endpoints.REFRESH.replace(':version', v), data, options)
-    .then((res: any) => {
-      localStorage.setItem(ACCESS_TOKEN, res.access_token);
-      localStorage.setItem(REFRESH_TOKEN, res.refresh_token);
-      return res as IRefreshResponse;
+    .post<IRefreshResponse>(`/api/${v}/auth/refresh-token`, data, options)
+    .then((res) => {
+      saveTokens(res.data.data);
+      return res;
     })
     .catch((error) => {
       resetTokens();
-      return Promise.reject(error);
+      throw error;
     });
 }
 
-function logout(config?: LogoutConfig): Promise<ILogoutResponse> {
-  const v = config?.v ?? 'v1';
-  const options = config?.options ?? {};
-  return instance.post(endpoints.LOGOUT.replace(':version', v), undefined, options).then(() => {
+function logout({ v = 'v1', options }: LogoutConfig = {}) {
+  return instance.post<ILogoutResponse>(`/api/${v}/auth/logout`, undefined, options).then((res) => {
     resetTokens();
-    return { message: 'Logged out successfully' };
+    return res;
   });
-}
-
-function resetTokens() {
-  localStorage.removeItem(ACCESS_TOKEN);
-  localStorage.removeItem(REFRESH_TOKEN);
 }
 
 export default {
@@ -70,5 +63,4 @@ export default {
   current,
   refresh,
   logout,
-  resetTokens
 };

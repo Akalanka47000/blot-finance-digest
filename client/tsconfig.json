@@ -29,8 +29,13 @@
     "resolveJsonModule": true,
     "strictPropertyInitialization": false,
     "target": "es5",
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "types": [
+      "node",
+      "react",
+      "react-dom",
+    ]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "../server/**/*.ts"],
   "exclude": ["node_modules"]
 }

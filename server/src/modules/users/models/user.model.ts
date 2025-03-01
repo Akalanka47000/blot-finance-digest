@@ -38,5 +38,5 @@ export class User {
 }
 
 declare global {
-  type IUser = InstanceType<typeof User>;
+  export type IUser = InstanceType<typeof User>;
 }

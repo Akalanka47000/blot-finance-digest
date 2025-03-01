@@ -2,8 +2,9 @@ import { redirect } from 'next/navigation';
 import { headers } from '@shared/constants';
 import { default as axios } from 'axios';
 import { jwtDecode } from 'jwt-decode';
-import { ACCESS_TOKEN, REFRESH_TOKEN, ROUTE_LOGIN } from '@/constants';
+import { ROUTE_LOGIN } from '@/constants';
 import { default as authService } from '../auth';
+import { ACCESS_TOKEN, REFRESH_TOKEN, resetTokens } from './util';
 
 const instance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL
@@ -16,7 +17,7 @@ instance.interceptors.request.use((req) => {
   if (typeof window !== 'undefined') {
     if (!token && typeof localStorage === 'object') {
       token = localStorage.getItem(ACCESS_TOKEN);
-      if (req.url === endpoints.CURRENT.replace(':version', 'v1') && !token) {
+      if (req.url?.endsWith("auth/current") && !token) {
         return Promise.reject(new Error('Missing access token'));
       }
     }
@@ -24,9 +25,8 @@ instance.interceptors.request.use((req) => {
       req.headers.Authorization = `Bearer ${token}`;
       try {
         const decoded = jwtDecode<IUser>(token);
-        req.headers[headers.userId] = decoded._id;
+        req.headers[headers.userId] = decoded.id;
         req.headers[headers.userEmail] = decoded.email;
-        req.headers[headers.userRole] = decoded.role;
       } catch (error) {
         // do nothing
       }
@@ -57,11 +57,11 @@ function formatError(error: any) {
 }
 
 instance.interceptors.response.use(
-  (res) => res.data.data ?? res.data,
-  async (error) => {
+  (res) => res,
+  async (error: any) => {
     let token: string | null | undefined = undefined;
 
-    const original = error.config;
+    const original = error.config as any
     if (typeof localStorage === 'object') {
       const refresh = localStorage.getItem(REFRESH_TOKEN);
       if (
@@ -78,14 +78,13 @@ instance.interceptors.response.use(
               _retry: true
             }
           });
-          token = response.access_token;
+          token = response.data.data.access_token;
           original.headers.Authorization = `Bearer ${token}`;
           const secondOriginalResponse = await axios(original);
           return secondOriginalResponse.data.data ?? secondOriginalResponse.data;
         } catch (err: any) {
           if (err.response?.status === 401 || err.message === 'Token has expired') {
-            localStorage.removeItem(ACCESS_TOKEN);
-            localStorage.removeItem(REFRESH_TOKEN);
+            resetTokens();
             redirect(ROUTE_LOGIN);
           }
           return Promise.reject(formatError(error));

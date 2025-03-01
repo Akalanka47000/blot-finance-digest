@@ -12,23 +12,20 @@ import { useRouter } from 'next/navigation';
 import { ROUTE_HOME } from '@/constants';
 import { filterAndNotifyError } from '@/utils';
 
-export function RegisterForm(): JSX.Element {
+export function LoginForm(): JSX.Element {
   const router = useRouter();
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      first_name: '',
-      last_name: '',
       email: '',
       password: '',
-      confirm_password: ''
     },
   });
 
   const registerMutation = useMutation({
-    mutationFn: async ({ confirm_password: _, ...data }: z.infer<typeof FormSchema>) => {
-      return await authService.register({ data });
+    mutationFn: async (data: z.infer<typeof FormSchema>) => {
+      return await authService.login({ data });
     },
     onSuccess: (result) => {
       toast.success(result.data.message);
@@ -42,32 +39,6 @@ export function RegisterForm(): JSX.Element {
       <Form {...form}>
         <form className="flex flex-col gap-6" onSubmit={form.handleSubmit(registerMutation.mutate as any)}>
           <div className="flex flex-col gap-3 sm:gap-4">
-            <FormField
-              control={form.control}
-              name="first_name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>First name*</FormLabel>
-                  <FormControl>
-                    <Input type="text" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="last_name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Last name*</FormLabel>
-                  <FormControl>
-                    <Input type="text"  {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
             <FormField
               control={form.control}
               name="email"
@@ -94,19 +65,6 @@ export function RegisterForm(): JSX.Element {
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="confirm_password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Confirm Password*</FormLabel>
-                  <FormControl>
-                    <Input type="password" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
           </div>
           <ExtendedButton
             className='mt-6'
@@ -120,4 +78,4 @@ export function RegisterForm(): JSX.Element {
   );
 }
 
-export default RegisterForm;
+export default LoginForm;

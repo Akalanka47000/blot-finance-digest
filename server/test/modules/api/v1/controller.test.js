@@ -11,7 +11,6 @@ import {
 
 describe('user-controller-tests', () => {
   const next = jest.fn();
-
   test('01. should add a user successfully', () => {
     jest.spyOn(userService, 'createUser').mockResolvedValue(mockGetUserResponse);
     const req = httpMocks.createRequest({
