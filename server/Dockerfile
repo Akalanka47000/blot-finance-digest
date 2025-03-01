@@ -12,6 +12,8 @@ COPY server ./server
 
 COPY package.json bun.lock ./
 
+RUN sh ./server/scripts/prune.sh
+
 RUN echo -e "[install]\ndev=false" > bunfig.toml
 
 RUN bun install --ignore-scripts
