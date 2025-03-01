@@ -8,6 +8,7 @@ import { headers } from '@shared/constants';
 import { moduleLogger } from '@sliit-foss/module-logger';
 import { default as stack } from 'callsite';
 import { default as compression } from 'compression';
+import { default as cookieParser } from 'cookie-parser';
 import { default as cors } from 'cors';
 import { default as helmet } from 'helmet';
 import { default as polyglot } from 'node-polyglot';
@@ -30,9 +31,16 @@ app.use(helmet());
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
+app.use(cookieParser());
+
 app.use(compression());
 
-app.use(cors());
+app.use(
+  cors({
+    origin: config.FRONTEND_BASE_URL,
+    credentials: true
+  })
+);
 
 app.use(context.middleware as any);
 

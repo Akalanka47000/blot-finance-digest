@@ -26,18 +26,6 @@ export interface ICurrentUserResponse {
   data: IUser;
 }
 
-export interface RefreshConfig extends RequestConfig {
-  data: any;
-}
-
-export interface IRefreshResponse {
-  message: string;
-  data: {
-    access_token: string;
-    refresh_token: string;
-  };
-}
-
 export interface LogoutConfig extends RequestConfig {}
 
 export interface ILogoutResponse {

@@ -6,7 +6,7 @@ export const HighImportanceText = ({
   ...props
 }: React.PropsWithChildren<React.HTMLAttributes<HTMLHeadingElement>>) => {
   return (
-    <h1 className={cn('max-w-3xl text-4xl sm:text-5xl md:text-6xl text-center px-6 sm:px-12 uppercase')} {...props}>
+    <h1 className={cn('max-w-3xl text-4xl sm:text-5xl md:text-6xl text-center px-6 sm:px-12 uppercase', className)} {...props}>
       {children}
     </h1>
   );
@@ -18,7 +18,7 @@ export const FormTitle = ({
   ...props
 }: React.PropsWithChildren<React.HTMLAttributes<HTMLHeadingElement>>) => {
   return (
-    <h1 className={cn('text-5xl font-noto text-center mb-10')} {...props}>
+    <h1 className={cn('text-5xl font-noto text-center mb-10', className)} {...props}>
       {children}
     </h1>
   );

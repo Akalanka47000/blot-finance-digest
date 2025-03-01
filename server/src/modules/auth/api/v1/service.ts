@@ -1,6 +1,6 @@
 import { default as bcrypt } from 'bcryptjs';
-import { Blacklist, errors, generateTokens, verify } from '@/modules/auth/utils';
-import { createUser, getUserById, updateUserById } from '@/modules/users/api/v1/service';
+import { Blacklist, errors, generateTokens } from '@/modules/auth/utils';
+import { createUser, updateUserById } from '@/modules/users/api/v1/service';
 import { getUserByEmail } from '@/modules/users/repository';
 
 export const login = async ({ email, password }: { email: string; password: string }) => {
@@ -23,16 +23,6 @@ export const register = (user: IUser) => {
       ...generateTokens(user)
     };
   });
-};
-
-export const refreshUserTokens = async (token: string) => {
-  const decodedRefreshToken = verify(token);
-  const decodedUser = verify(decodedRefreshToken.access_token, true);
-  const user = await getUserById(decodedUser.id);
-  if (!user) {
-    throw errors.invalid_token;
-  }
-  return generateTokens(user);
 };
 
 export const logout = (token: string) => {
