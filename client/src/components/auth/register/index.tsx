@@ -1,4 +1,4 @@
-import { FormTitle } from '../common';
+import { FormTitle } from '../../common';
 import { RegisterForm } from './form';
 
 export function RegisterFormContainer(): JSX.Element {

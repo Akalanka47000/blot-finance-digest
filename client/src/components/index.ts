@@ -1,4 +1,3 @@
-export * from './layout';
 export * from './common';
-export * from './login';
-export * from './register';
+export * from './auth/login';
+export * from './auth/register';

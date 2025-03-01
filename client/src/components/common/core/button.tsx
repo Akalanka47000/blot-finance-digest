@@ -18,7 +18,7 @@ const buttonVariants = cva(
         nav: 'w-full justify-between font-normal text-base hover:bg-blue-50 hover:text-primary group'
       },
       size: {
-        default: 'h-8 sm:h-10 px-3 sm:px-4 py-2',
+        default: 'h-10 px-3 sm:px-4 py-2',
         sm: 'h-9 rounded-md px-3',
         lg: 'h-11 rounded-md px-8',
         icon: 'h-10 w-10'
@@ -54,7 +54,7 @@ const ExtendedButton = React.forwardRef<HTMLButtonElement, ExtendedButtonProps>(
     props.className = cn('transition-all duration-medium', props.className, loading && 'pointer-events-none');
     return (
       <Button {...props} disabled={props.disabled} ref={ref}>
-        {loading && <Loader2 className="animate-spin mr-2.5" />}
+        {loading && <Loader2 className="animate-spin w-[1.2rem] h-[1.2rem] md:w-5 md:h-5 mr-2.5" />}
         {children}
       </Button>
     );
