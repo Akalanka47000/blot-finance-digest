@@ -1,5 +1,5 @@
-import { Suspense } from 'react';
 import type { Metadata, Viewport } from 'next';
+import { Suspense } from 'react';
 import { notoSerif, roboto } from '@/assets/fonts';
 import { Header, Toaster } from '@/components';
 import { default as Providers } from '@/providers';
