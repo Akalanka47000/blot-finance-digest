@@ -4,9 +4,10 @@ This is a [Turborepo](https://turbo.build/repo) designed to house all components
 
 </br>
 
+## [API Documentation](https://documenter.getpostman.com/view/32343835/2sAYdhKqVB)
+
 ## File Structure
 
-- .github - GitHub Action workflows
 - client - Frontend application for Finance digest
 - packages - All shared packages
   - config-eslint - ESLint configurations
