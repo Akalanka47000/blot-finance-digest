@@ -14,7 +14,7 @@ export function LoginAlert() {
     if (source === 'post-create' && !alerted) {
       alerted = true;
       setTimeout(() => {
-        toast.success('Please login to create a post');
+        toast.warning('Please login to create a post');
       }, 0);
     }
   }, [source, alerted]);

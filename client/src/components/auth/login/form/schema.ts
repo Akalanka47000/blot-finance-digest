@@ -1,12 +1,7 @@
-import { passwordValidationFailureMessage, regex } from '@shared/constants';
 import { z } from 'zod';
 
 export default z
   .object({
     email: z.string().email(),
-    password: z.string().optional()
+    password: z.string().min(1, "Password is required")
   })
-  .refine((data) => data.password && regex.password.test(data.password), {
-    message: passwordValidationFailureMessage,
-    path: ['password']
-  });

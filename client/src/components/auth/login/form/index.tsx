@@ -24,7 +24,7 @@ export function LoginForm(): JSX.Element {
     }
   });
 
-  const registerMutation = useMutation({
+  const loginMutation = useMutation({
     mutationFn: async (data: z.infer<typeof FormSchema>) => {
       return await authService.login({ data });
     },
@@ -38,7 +38,7 @@ export function LoginForm(): JSX.Element {
   return (
     <>
       <Form {...form}>
-        <form className="flex flex-col gap-6" onSubmit={form.handleSubmit(registerMutation.mutate as any)}>
+        <form className="flex flex-col gap-6" onSubmit={form.handleSubmit(loginMutation.mutate as any)}>
           <div className="flex flex-col gap-3 sm:gap-4">
             <FormField
               control={form.control}
@@ -73,7 +73,7 @@ export function LoginForm(): JSX.Element {
               Register
             </Link>
           </span>
-          <ExtendedButton loading={registerMutation.isPending} type="submit">
+          <ExtendedButton loading={loginMutation.isPending} type="submit">
             Submit
           </ExtendedButton>
         </form>
