@@ -1,5 +1,5 @@
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
-import { CustomRepository } from '@/database/postgres';
+import { CustomRepository } from '../../../database/postgres';
 
 @Entity({ name: 'users', comment: 'Stores all users within the application' })
 export class User {
@@ -28,7 +28,7 @@ export class User {
   public updated_at: Date;
 
   static cleanse(user: IUser) {
-    delete user.password;
+    user.password = undefined as any;
     return user;
   }
 

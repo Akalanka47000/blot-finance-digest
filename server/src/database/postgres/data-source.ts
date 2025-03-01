@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import { DataSource } from 'typeorm';
-import { default as config } from '@/config';
+import { default as config } from '../../config';
 import { Post } from '../../modules/posts/models';
 import { User } from '../../modules/users/models';
 

@@ -1,5 +1,5 @@
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
-import { CustomRepository } from '@/database/postgres';
+import { CustomRepository } from '../../../database/postgres';
 
 @Entity({ name: 'posts', comment: 'Stores all user created posts' })
 export class Post {

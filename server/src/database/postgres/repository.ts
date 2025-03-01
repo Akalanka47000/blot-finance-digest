@@ -30,7 +30,7 @@ export class CustomRepository<Entity extends ObjectLiteral> extends Repository<E
     const [data, total] = await this.findAndCount(opts);
 
     const totalPages = Math.ceil(total / options.limit);
-    let next = options.page + 1;
+    let next: number | null = options.page + 1;
     if (next > totalPages) {
       next = null;
     }

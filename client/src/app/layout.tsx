@@ -4,6 +4,7 @@ import { Header, Toaster } from '@/components';
 import { default as Providers } from '@/providers';
 import '../styles/index.css';
 import './preload-resources';
+import { Suspense } from 'react';
 
 const title = 'BLOTT | Finance Digest';
 const description =
@@ -67,8 +68,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }):
     <html lang="en">
       <body className={`${roboto.className} ${notoSerif.variable} min-h-svh flex flex-col justify-between`}>
         <Providers>
-          <Header />
-          {children}
+          <Suspense>
+            <Header />
+            {children}
+          </Suspense>
         </Providers>
         <Toaster
           richColors
