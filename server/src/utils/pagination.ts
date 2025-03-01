@@ -1,4 +1,9 @@
-export const paginate = <T>(docs: T[], page: number, limit: number) => {
+import { PaginatedResult } from '../database/postgres/repository';
+
+export function paginate<T>(docs: T[], page: undefined | null, limit?: number): T[];
+export function paginate<T>(docs: T[], page: number, limit?: number): PaginatedResult<T>;
+
+export function paginate<T>(docs: T[], page?: number | null, limit?: number): T[] | PaginatedResult<T> {
   if (!page) {
     return docs;
   }
@@ -16,4 +21,4 @@ export const paginate = <T>(docs: T[], page: number, limit: number) => {
     hasPrevPage: page > 1,
     hasNextPage: page < Math.ceil(docs.length / limit)
   };
-};
+}

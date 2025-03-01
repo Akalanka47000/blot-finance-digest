@@ -1,5 +1,17 @@
 import { EntityTarget, FindManyOptions, ObjectLiteral, Repository } from 'typeorm';
 
+export type PaginatedResult<T> = {
+  docs: T[];
+  totalDocs: number;
+  limit: number;
+  page: number;
+  totalPages: number;
+  nextPage: number | null;
+  prevPage: number | null;
+  hasPrevPage: boolean;
+  hasNextPage: boolean;
+};
+
 export class CustomRepository<Entity extends ObjectLiteral> extends Repository<Entity> {
   constructor(model: EntityTarget<Entity>) {
     const ds = require('./data-source').default;
@@ -47,6 +59,6 @@ export class CustomRepository<Entity extends ObjectLiteral> extends Repository<E
       prevPage: prev,
       hasPrevPage: options.page > 1,
       hasNextPage: options.page * options.limit < total
-    };
+    } as PaginatedResult<Entity>;
   }
 }
