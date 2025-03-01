@@ -103,7 +103,7 @@ process.on('SIGTERM', () => {
   logger.info('Received SIGTERM. Server shutdown initiated');
   server.close(() => {
     if (process.env.NODE_ENV === 'development') return process.exit(0);
-    logger.info('Server shutdown complete. Exiting after 30 seconds minutes');
+    logger.info('Server shutdown complete. Exiting after 30 seconds');
     setTimeout(async () => {
       await database.disconnect();
       process.exit(0);

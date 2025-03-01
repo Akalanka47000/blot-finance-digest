@@ -1,11 +1,13 @@
 import { Response } from 'express';
+import config from '@/config';
 
 export const setCookie = (res: Response, name: string, value: string, expiry: number = 1) => {
   res.cookie(name, value, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'none',
-    maxAge: expiry * 60 * 60 * 1000
+    maxAge: expiry * 60 * 60 * 1000,
+    domain: new URL(config.FRONTEND_BASE_URL).hostname
   });
 };
 
