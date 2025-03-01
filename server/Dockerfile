@@ -12,7 +12,7 @@ COPY server ./server
 
 COPY package.json bun.lock ./
 
-RUN sh ./server/scripts/prune.sh
+RUN sh ./server/scripts/prune.sh server
 
 RUN echo -e "[install]\ndev=false" > bunfig.toml
 
