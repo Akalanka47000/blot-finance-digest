@@ -4,7 +4,7 @@ export const setCookie = (res: Response, name: string, value: string, expiry: nu
   res.cookie(name, value, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
-    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+    sameSite: 'none',
     maxAge: expiry * 60 * 60 * 1000
   });
 };

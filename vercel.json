@@ -1,8 +1,5 @@
 {
   "git": {
     "deploymentEnabled": false
-  },
-  "headers": [
-    { "source": "/(.*)", "headers": [{ "key": "Access-Control-Allow-Credentials", "value": "true" }] }
-  ]
+  }
 }
