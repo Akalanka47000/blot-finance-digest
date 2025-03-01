@@ -13,7 +13,6 @@ import type {
 import { instance } from './core';
 import { resetTokens, saveTokens } from './core/util';
 
-
 function login({ v = 'v1', data, options }: LoginConfig) {
   return instance.post<ILoginResponse>(`/api/${v}/auth/login`, data, options).then((res) => {
     saveTokens(res.data);
@@ -29,12 +28,10 @@ function register({ v = 'v1', data, options }: RegisterConfig) {
 }
 
 function current({ v = 'v1', options }: CurrentConfig = {}) {
-  return instance
-    .get<ICurrentUserResponse>(`/api/${v}/auth/current`, options)
-    .catch((error) => {
-      resetTokens();
-      return Promise.reject(error);
-    });
+  return instance.get<ICurrentUserResponse>(`/api/${v}/auth/current`, options).catch((error) => {
+    resetTokens();
+    return Promise.reject(error);
+  });
 }
 
 function refresh({ v = 'v1', data, options }: RefreshConfig) {
@@ -62,5 +59,5 @@ export default {
   register,
   current,
   refresh,
-  logout,
+  logout
 };

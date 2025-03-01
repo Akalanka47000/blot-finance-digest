@@ -1,5 +1,5 @@
-import { HandCoins } from "lucide-react";
-import { HighImportanceText } from "./typography";
+import { HandCoins } from 'lucide-react';
+import { HighImportanceText } from './typography';
 
 export function NotFound() {
   return (

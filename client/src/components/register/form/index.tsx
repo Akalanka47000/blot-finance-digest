@@ -1,16 +1,16 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
 import { ExtendedButton, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input } from '@/components';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { default as FormSchema } from './schema';
-import { useMutation } from '@tanstack/react-query';
-import { authService } from '@/services';
-import { useRouter } from 'next/navigation';
 import { ROUTE_HOME } from '@/constants';
+import { authService } from '@/services';
 import { filterAndNotifyError } from '@/utils';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation } from '@tanstack/react-query';
+import { default as FormSchema } from './schema';
 
 export function RegisterForm(): JSX.Element {
   const router = useRouter();
@@ -23,7 +23,7 @@ export function RegisterForm(): JSX.Element {
       email: '',
       password: '',
       confirm_password: ''
-    },
+    }
   });
 
   const registerMutation = useMutation({
@@ -34,8 +34,8 @@ export function RegisterForm(): JSX.Element {
       toast.success(result.data.message);
       router.push(ROUTE_HOME);
     },
-    onError: filterAndNotifyError,
-  })
+    onError: filterAndNotifyError
+  });
 
   return (
     <>
@@ -62,7 +62,7 @@ export function RegisterForm(): JSX.Element {
                 <FormItem>
                   <FormLabel>Last name*</FormLabel>
                   <FormControl>
-                    <Input type="text"  {...field} />
+                    <Input type="text" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -108,10 +108,7 @@ export function RegisterForm(): JSX.Element {
               )}
             />
           </div>
-          <ExtendedButton
-            className='mt-6'
-            loading={registerMutation.isPending}
-            type="submit">
+          <ExtendedButton className="mt-6" loading={registerMutation.isPending} type="submit">
             Submit
           </ExtendedButton>
         </form>

@@ -10,16 +10,16 @@ export interface ILoginResponse {
     user: IUser;
     access_token: string;
     refresh_token: string;
-  }
+  };
 }
 
 export interface RegisterConfig extends RequestConfig {
   data: any;
 }
 
-export interface IRegisterResponse extends ILoginResponse { }
+export interface IRegisterResponse extends ILoginResponse {}
 
-export interface CurrentConfig extends RequestConfig { }
+export interface CurrentConfig extends RequestConfig {}
 
 export interface ICurrentUserResponse {
   message: string;
@@ -35,10 +35,10 @@ export interface IRefreshResponse {
   data: {
     access_token: string;
     refresh_token: string;
-  }
+  };
 }
 
-export interface LogoutConfig extends RequestConfig { }
+export interface LogoutConfig extends RequestConfig {}
 
 export interface ILogoutResponse {
   message: string;

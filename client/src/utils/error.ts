@@ -28,7 +28,7 @@ export function filterErrors(error: { status: number; message: string }) {
 export const errTryAgainLater = 'Something went wrong! Please, try again later';
 
 export function filterAndNotifyError(e) {
-    console.log(e);
+  console.log(e);
   toast.error(filterErrors(e) ?? 'Something went wrong!');
 }
 

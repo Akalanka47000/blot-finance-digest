@@ -1,7 +1,9 @@
-import { Logo } from "@/icons";
+import { Logo } from '@/icons';
 
 export default function Header() {
-  return <div className="flex justify-center items-center py-12">
-    <Logo />
-  </div>;
+  return (
+    <div className="flex justify-center items-center py-12">
+      <Logo />
+    </div>
+  );
 }

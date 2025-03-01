@@ -17,7 +17,7 @@ instance.interceptors.request.use((req) => {
   if (typeof window !== 'undefined') {
     if (!token && typeof localStorage === 'object') {
       token = localStorage.getItem(ACCESS_TOKEN);
-      if (req.url?.endsWith("auth/current") && !token) {
+      if (req.url?.endsWith('auth/current') && !token) {
         return Promise.reject(new Error('Missing access token'));
       }
     }
@@ -61,7 +61,7 @@ instance.interceptors.response.use(
   async (error: any) => {
     let token: string | null | undefined = undefined;
 
-    const original = error.config as any
+    const original = error.config as any;
     if (typeof localStorage === 'object') {
       const refresh = localStorage.getItem(REFRESH_TOKEN);
       if (

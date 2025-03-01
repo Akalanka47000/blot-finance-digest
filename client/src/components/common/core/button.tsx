@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
+import { Loader2 } from 'lucide-react';
 import { cn } from '@/utils';
 import { Slot } from '@radix-ui/react-slot';
-import { Loader2 } from 'lucide-react';
 
 const buttonVariants = cva(
   'inline-flex items-center justify-center whitespace-nowrap rounded-full small font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
@@ -33,7 +33,7 @@ const buttonVariants = cva(
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-  VariantProps<typeof buttonVariants> {
+    VariantProps<typeof buttonVariants> {
   asChild?: boolean;
 }
 
@@ -51,7 +51,7 @@ interface ExtendedButtonProps extends ButtonProps {
 
 const ExtendedButton = React.forwardRef<HTMLButtonElement, ExtendedButtonProps>(
   ({ loading, children, ...props }, ref) => {
-    props.className = cn("transition-all duration-medium", props.className, loading && 'pointer-events-none');
+    props.className = cn('transition-all duration-medium', props.className, loading && 'pointer-events-none');
     return (
       <Button {...props} disabled={props.disabled} ref={ref}>
         {loading && <Loader2 className="animate-spin mr-2.5" />}

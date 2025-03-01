@@ -63,7 +63,7 @@ const config: Config = {
       },
       fontFamily: {
         roboto: ['var(--font-roboto)'],
-        noto: ['var(--font-noto-serif)'],
+        noto: ['var(--font-noto-serif)']
       },
       transitionDuration: {
         medium: '300ms',

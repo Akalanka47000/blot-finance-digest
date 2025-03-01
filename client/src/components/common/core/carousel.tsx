@@ -8,8 +8,8 @@ import {
 } from 'embla-carousel';
 import useEmblaCarousel from 'embla-carousel-react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { cn } from '@/utils';
 import { Button } from '@/components';
+import { cn } from '@/utils';
 
 type CarouselProps = {
   opts?: CarouselOptions;
